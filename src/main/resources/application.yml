@@ -1,0 +1,15 @@
+spring:
+  #application-name
+  application:
+    name: et-expense-service
+
+
+  #mongo-db
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: et-expense-service
+
+#port
+server:
+  port: 8082

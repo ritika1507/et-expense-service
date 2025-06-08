@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExpenseData {
     private String title;
-    private String amount;
+    private Long amount;
     private String expCatId;
 }

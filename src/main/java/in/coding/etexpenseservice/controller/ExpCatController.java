@@ -3,6 +3,7 @@ package in.coding.etexpenseservice.controller;
 import in.coding.etexpenseservice.constants.LoggingContants;
 import in.coding.etexpenseservice.controller.dto.ExpCatRequest;
 import in.coding.etexpenseservice.controller.dto.ExpCategory;
+import in.coding.etexpenseservice.data.model.expense.ExpenseCategory;
 import in.coding.etexpenseservice.service.ExpCatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class ExpCatController {
     private final ExpCatService expCatService;
 
     @PostMapping("/")
-    public ResponseEntity<ExpCategory> createExpCat(
+    public ResponseEntity<ExpenseCategory> createExpCat(
             @PathVariable String userId,
             @RequestBody ExpCatRequest expCatRequest
     ){
@@ -42,13 +43,13 @@ public class ExpCatController {
     }
 
     @GetMapping("/{expCatId}")
-    public ResponseEntity<ExpCategory> getExpenseById(
+    public ResponseEntity<ExpenseCategory> getExpenseById(
             @PathVariable String userId,
             @PathVariable String expCatId
     ){
         var methodName = "ExpCatController : getExpenseById";
         log.info(LoggingContants.START_METHOD_LOG, methodName, userId, expCatId);
-        var expCategory = expCatService.getExpenseById(expCatId, userId);
+        var expCategory = expCatService.getExpenseCatById(expCatId, userId);
         log.info(LoggingContants.END_METHOD_LOG, methodName);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -56,12 +57,12 @@ public class ExpCatController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ExpCategory>> getExpenseListByUserId(
+    public ResponseEntity<List<ExpenseCategory>> getExpenseListByUserId(
             @PathVariable String userId
     ){
         var methodName = "ExpCatController : getExpenseById";
         log.info(LoggingContants.START_METHOD_LOG, methodName, userId);
-        List<ExpCategory> expCategoryList = expCatService.getExpenseListByUserId(userId);
+        List<ExpenseCategory> expCategoryList = expCatService.getExpenseCatListByUserId(userId);
         log.info(LoggingContants.END_METHOD_LOG, methodName);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -69,7 +70,7 @@ public class ExpCatController {
     }
 
     @PutMapping("/{expCatId}")
-    public ResponseEntity<ExpCategory> createExpCat(
+    public ResponseEntity<ExpenseCategory> createExpCat(
             @PathVariable String userId,
             @PathVariable String expCatId,
             @RequestBody ExpCatRequest expCatRequest
@@ -90,7 +91,7 @@ public class ExpCatController {
     ){
         var methodName = "ExpCatController : deleteExpenseById";
         log.info(LoggingContants.START_METHOD_LOG, methodName, userId, expCatId);
-        expCatService.deleteExpenseById(expCatId, userId);
+        expCatService.deleteExpenseCatById(expCatId, userId);
         log.info(LoggingContants.END_METHOD_LOG, methodName);
         return ResponseEntity
                 .status(HttpStatus.OK)

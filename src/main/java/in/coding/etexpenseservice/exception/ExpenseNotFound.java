@@ -1,8 +1,11 @@
 package in.coding.etexpenseservice.exception;
 
+import lombok.Getter;
+
+@Getter
 public class ExpenseNotFound extends RuntimeException{
 
-    private String errorCode;;
+    private final String errorCode;;
 
     public ExpenseNotFound(String message, String errorCode) {
         super(message);

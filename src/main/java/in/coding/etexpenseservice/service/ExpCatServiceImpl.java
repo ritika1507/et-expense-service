@@ -2,7 +2,7 @@ package in.coding.etexpenseservice.service;
 
 import in.coding.etexpenseservice.constants.ErrorMessaging;
 import in.coding.etexpenseservice.constants.LoggingContants;
-import in.coding.etexpenseservice.controller.dto.ExpCategory;
+import in.coding.etexpenseservice.data.model.expense.ExpenseCategory;
 import in.coding.etexpenseservice.data.repo.ExpCatRepo;
 import in.coding.etexpenseservice.exception.ExpCatAlreadyExists;
 import in.coding.etexpenseservice.exception.ExpenseNotFound;
@@ -20,7 +20,7 @@ public class ExpCatServiceImpl implements ExpCatService{
     private final ExpCatRepo expCatRepo;
 
     @Override
-    public ExpCategory createExpCat(String name, String userId) {
+    public ExpenseCategory createExpCat(String name, String userId) {
        //log
         var methodName = "ExpCatServiceImpl : createExpCat";
         log.info(LoggingContants.START_METHOD_LOG ,methodName, name, userId);
@@ -37,7 +37,7 @@ public class ExpCatServiceImpl implements ExpCatService{
         }
 
         // if not, create it
-        var expCat = ExpCategory.builder()
+        var expCat = ExpenseCategory.builder()
                 .userId(userId)
                 .name(name.toLowerCase())
                 .build();
@@ -52,11 +52,11 @@ public class ExpCatServiceImpl implements ExpCatService{
     }
 
     @Override
-    public ExpCategory getExpenseById(String expCatId, String userId) {
+    public ExpenseCategory getExpenseCatById(String expCatId, String userId) {
         var methodName = "ExpCatServiceImpl : getExpenseById";
         log.info(LoggingContants.START_METHOD_LOG ,methodName, expCatId, userId);
 
-        var expcategory =  expCatRepo.findByExpCatIdAndUserId(expCatId, userId)
+        var expCategory =  expCatRepo.findByExpCatIdAndUserId(expCatId, userId)
                 .orElseThrow(() -> {
                     log.error(LoggingContants.ERROR_METHOD_LOG, methodName, expCatId);
                     return new ExpenseNotFound(
@@ -66,22 +66,22 @@ public class ExpCatServiceImpl implements ExpCatService{
                 );
 
         log.info(LoggingContants.END_METHOD_LOG ,methodName);
-        return expcategory;
+        return expCategory;
     }
 
     @Override
-    public List<ExpCategory> getExpenseListByUserId(String userId) {
+    public List<ExpenseCategory> getExpenseCatListByUserId(String userId) {
         var methodName = "ExpCatServiceImpl : getExpenseById";
         log.info(LoggingContants.START_METHOD_LOG ,methodName, userId);
 
-        List<ExpCategory> expcategory =  expCatRepo.findByUserId(userId);
+        List<ExpenseCategory> expcategory =  expCatRepo.findByUserId(userId);
 
         log.info(LoggingContants.END_METHOD_LOG ,methodName);
         return expcategory;
     }
 
     @Override
-    public ExpCategory updateExpCat(String name, String userId, String expCatId) {
+    public ExpenseCategory updateExpCat(String name, String userId, String expCatId) {
         var methodName = "ExpCatServiceImpl : updateExpCat";
         log.info(LoggingContants.START_METHOD_LOG ,methodName, name, userId);
 
@@ -97,7 +97,7 @@ public class ExpCatServiceImpl implements ExpCatService{
         }
 
         // if not,find and update
-        var expCat = getExpenseById(expCatId, userId);
+        var expCat = getExpenseCatById(expCatId, userId);
 
         expCat.setName(name.toLowerCase());
 
@@ -111,7 +111,7 @@ public class ExpCatServiceImpl implements ExpCatService{
     }
 
     @Override
-    public void deleteExpenseById(String expCatId, String userId) {
+    public void deleteExpenseCatById(String expCatId, String userId) {
         var methodName = "ExpCatServiceImpl : deleteExpenseById";
         log.info(LoggingContants.START_METHOD_LOG ,methodName, expCatId, userId);
 

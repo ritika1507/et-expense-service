@@ -1,6 +1,5 @@
 package in.coding.etexpenseservice.handler;
 
-import in.coding.etexpenseservice.constants.ErrorMessaging;
 import in.coding.etexpenseservice.controller.dto.ErrorResponse;
 import in.coding.etexpenseservice.exception.ExpCatAlreadyExists;
 import in.coding.etexpenseservice.exception.ExpenseNotFound;

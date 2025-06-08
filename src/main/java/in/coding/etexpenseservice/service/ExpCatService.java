@@ -1,17 +1,16 @@
 package in.coding.etexpenseservice.service;
-
-import in.coding.etexpenseservice.data.model.expCat.ExpCategory;
+import in.coding.etexpenseservice.data.model.expense.ExpenseCategory;
 
 import java.util.List;
 
 public interface ExpCatService {
-     ExpCategory createExpCat(String name, String userId);
+     ExpenseCategory createExpCat(String name, String userId);
 
-     ExpCategory getExpenseById(String expCatId, String userId);
+     ExpenseCategory getExpenseCatById(String expCatId, String userId);
 
-     List<ExpCategory> getExpenseListByUserId(String userId);
+     List<ExpenseCategory> getExpenseCatListByUserId(String userId);
 
-     ExpCategory updateExpCat(String name, String userId, String expCatId);
+     ExpenseCategory updateExpCat(String name, String userId, String expCatId);
 
-     void deleteExpenseById(String expCatId, String userId);
+     void deleteExpenseCatById(String expCatId, String userId);
 }
